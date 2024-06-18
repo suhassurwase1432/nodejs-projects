@@ -1,0 +1,16 @@
+{
+  "name": "file_handling_application_niit",
+  "version": "1.0.0",
+  "description": "Application for File Handling",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Suhas Surwase",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "fs-extra": "^11.2.0",
+    "os": "^0.1.2"
+  }
+}
