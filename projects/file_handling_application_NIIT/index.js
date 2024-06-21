@@ -64,7 +64,7 @@ const fileProcessing = async (fileDir) => {
 }
 const watcher = chokidar.watch(`${__dirname}/input_folder`, {
     persistent: true,
-    interval: 10 * 60 * 1000
+    interval: 5 * 60 * 1000
 });
 
 watcher.on('add' , fileProcessing);
