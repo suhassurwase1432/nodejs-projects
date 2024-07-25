@@ -14,13 +14,12 @@ router.route('/:id')
 .delete(movieController.deleteMovie);
 
 router.post('/upload' , upload.single("image"), (req ,res) => {
-    res.status(200).json({
-      status : "success",
-        message: 'File uploaded successfully'
-      });
+  res.status(200).json({
+    status : "success",
+      message: 'File uploaded successfully'
+    });
 });
 
-router.route('/images').get(movieController.getImages);
 router.route('/images/:filename').get(movieController.getImage);
 
 module.exports = router;

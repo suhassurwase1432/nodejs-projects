@@ -105,21 +105,3 @@ exports.getImage = (req, res, next) => {
         }
     });    
 };
-
-exports.getImages = (req,res) => {
-    const imagesPath = path.join(__dirname , '../images');
-
-    fs.readdir(imagesPath , (err, files) => {
-        if (err) {
-            return next(new AppError('Unable to read images directory', 500))
-        }
-        const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif|png)$/.test(file));
-
-        res.status(200).json({
-        status: 'success',
-        message: {
-            images: imageFiles
-        }
-    });
-    });   
-}
