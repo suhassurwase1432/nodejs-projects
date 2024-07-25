@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const Movie = require('../models/movieModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('./../utils/appError');
@@ -77,3 +79,47 @@ exports.deleteMovie = catchAsync( async (req, res, next)=>{
         "message" : "movie deleted successfully."
     });
 });
+
+exports.getImage = (req, res, next) => {
+
+    const partialName = req.params.filename;
+    const imagesPath = path.join(__dirname , '../images');
+
+    fs.readdir(imagesPath , (err, files) => {
+        if (err) {
+            return next(new AppError('Unable to read images directory', 500))
+        }
+
+        const matchedFile = files.find(file => file.includes(partialName));
+
+        if (matchedFile) {
+            const imagePath = path.join(imagesPath, matchedFile);
+            res.status(200).json({
+                status: 'success',
+                message: {
+                    image: imagePath
+                }
+            });
+        } else {
+            return next(new AppError('Image not found', 404));
+        }
+    });    
+};
+
+exports.getImages = (req,res) => {
+    const imagesPath = path.join(__dirname , '../images');
+
+    fs.readdir(imagesPath , (err, files) => {
+        if (err) {
+            return next(new AppError('Unable to read images directory', 500))
+        }
+        const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif|png)$/.test(file));
+
+        res.status(200).json({
+        status: 'success',
+        message: {
+            images: imageFiles
+        }
+    });
+    });   
+}
